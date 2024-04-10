@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, FlatList, StyleSheet, Button } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 import {CoinItem, Searchbar} from "../../components";
 import { api } from "../../services/api";
@@ -10,7 +11,14 @@ const LIMIT = 10;
 type SortOrder = 'asc' | 'desc';
 type SortField = 'price' | 'rank';
 
-export const ListTokens = () => {
+type Props = {
+    route: any;
+}
+
+export const ListTokens = ({ route }: Props) => {
+    const { onSelect } = route.params;
+    const navigation = useNavigation();
+
     const [coins, setCoins] = useState<Token[]>([]);
     const [selectedCoin, setSelectedCoin] = useState<Token>();
     const [searchQuery, setSearchQuery] = useState<string>("");
@@ -32,6 +40,8 @@ export const ListTokens = () => {
 
     const handleCoinPress = (coin: Token) => {
         setSelectedCoin(coin);
+        onSelect(coin);
+        navigation.goBack();
     };
 
     const handleSearch = (text: string) => {

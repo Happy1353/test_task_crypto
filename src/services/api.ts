@@ -1,5 +1,5 @@
 import { HttpClient } from "./http-client"
-import { TokenData } from "./types"
+import { TokenData, TokenDataById } from "./types"
 
 //TODO: put in env
 const apiBaseUrl = 'https://api.cryptorank.io/v1'
@@ -12,6 +12,10 @@ export class Api extends HttpClient {
 
     public getCoins = (limit: number, offset: number, sortBy: string) => {
         return this.instance.get<TokenData>(`/currencies?api_key=${secretKey}&limit=${limit}&offset=${offset}&sort=${sortBy}`);
+    }
+
+    public getCoinById = (id: number) => {
+        return this.instance.get<TokenDataById>(`/currencies/${id}`);
     }
     
 }

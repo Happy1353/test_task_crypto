@@ -10,6 +10,18 @@ export interface TokenData {
     };
 }
 
+export interface TokenDataById {
+    data: Token;
+    status: {
+        success: boolean;
+        time: string;
+        code: number;
+        message: string;
+        responseTime: number;
+        creditsCost: number;
+    };
+}
+
 export interface Token {
     id: number;
     slug: string;
